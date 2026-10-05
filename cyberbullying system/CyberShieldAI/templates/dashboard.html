@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - CyberShield AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <div class="bg-dark border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading text-white">CyberShield AI</div>
+        <div class="list-group list-group-flush">
+          <a href="/dashboard" class="list-group-item list-group-item-action bg-dark text-white">Dashboard</a>
+          <a href="/detect" class="list-group-item list-group-item-action bg-dark text-white">Simulator</a>
+          <a href="/analytics" class="list-group-item list-group-item-action bg-dark text-white">Analytics</a>
+          <a href="/admin" class="list-group-item list-group-item-action bg-dark text-white">Admin</a>
+          <a href="/logout" class="list-group-item list-group-item-action bg-dark text-white">Logout</a>
+        </div>
+      </div>
+      <div id="page-content-wrapper" class="w-100">
+        <div class="container-fluid p-4">
+          <h1 class="mt-4">Dashboard</h1>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Total Posts</h5>
+                  <p class="card-text fs-3">{{ total }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Harmful Posts</h5>
+                  <p class="card-text fs-3">{{ harmful }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Safe Posts</h5>
+                  <p class="card-text fs-3">{{ safe }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Model Accuracy</h5>
+                  <p class="card-text fs-3">{{ metrics.get('accuracy', 0) | round(2) }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4>Recent Activities</h4>
+          <ul class="list-group">
+            {% for r in recent %}
+            <li class="list-group-item">{{ r.created_at }} - {{ r.post_text[:80] }} - <strong>{{ r.prediction }}</strong></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

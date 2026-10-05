@@ -1,0 +1,8 @@
+/* Basic custom styles for Employee Management System */
+body { background:#f5f7fb; }
+.stats-card { background: linear-gradient(90deg,#ffffff, #f8f9ff); box-shadow: 0 2px 8px rgba(14,30,37,0.06); }
+.card { box-shadow: 0 2px 6px rgba(12,24,36,0.06); }
+.table td, .table th { vertical-align: middle; }
+@media (max-width:576px){
+  .stats-card h3 { font-size: 1.4rem; }
+}

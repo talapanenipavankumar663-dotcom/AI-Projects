@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top left, #5b74ff 0%, #1a1f3b 55%);
+    color: #fff7fa;
+    min-height: 100vh;
+}
+
+.page-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 3rem;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+}
+
+.hero p {
+    margin: 0.75rem auto 0;
+    max-width: 640px;
+    line-height: 1.7;
+    color: #d6dbff;
+}
+
+.card {
+    background: rgba(16, 24, 64, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.25);
+}
+
+.field-group {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: 600;
+    color: #d7dbff;
+}
+
+select,
+textarea {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: #eef2ff;
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #7ba3ff;
+    transform: translateY(-1px);
+}
+
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: none;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #6a88ff 0%, #4f6dff 100%);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(79, 109, 255, 0.25);
+}
+
+.output-panel {
+    margin-top: 2rem;
+}
+
+.output-panel h2 {
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+}
+
+.output {
+    min-height: 160px;
+    padding: 1.5rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #eef2ff;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+@media (max-width: 640px) {
+    .page-wrap {
+        padding: 1.2rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+}

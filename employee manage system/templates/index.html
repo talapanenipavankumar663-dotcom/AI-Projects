@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Management Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">EMS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="/add">Add Employee</a></li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input id="searchBox" class="form-control me-2" type="search" placeholder="Search by name, email or department" aria-label="Search" value="{{ search }}">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, msg in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              {{ msg }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <div class="card stats-card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h6>Total Employees</h6>
+                <h3>{{ total }}</h3>
+              </div>
+              <i class="fa-solid fa-users fa-2x text-secondary"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h6>Department Counts</h6>
+                {% for d in dept_counts %}
+                  <span class="badge bg-secondary me-2">{{ d['department'] }}: {{ d['cnt'] }}</span>
+                {% else %}
+                  <span class="text-muted">No departments yet</span>
+                {% endfor %}
+              </div>
+              <div>
+                <select id="departmentFilter" class="form-select">
+                  <option value="All">All Departments</option>
+                  {% for d in departments %}
+                    <option value="{{ d }}" {% if d==selected_department %}selected{% endif %}>{{ d }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body table-responsive">
+          <table class="table table-hover" id="employeesTable">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Joining Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for emp in employees %}
+                <tr>
+                  <td>{{ emp['id'] }}</td>
+                  <td class="emp-name">{{ emp['name'] }}</td>
+                  <td class="emp-email">{{ emp['email'] }}</td>
+                  <td>{{ emp['phone'] }}</td>
+                  <td class="emp-dept">{{ emp['department'] }}</td>
+                  <td>${{ '%.2f'|format(emp['salary']) }}</td>
+                  <td>{{ emp['joining_date'] }}</td>
+                  <td>
+                    <a class="btn btn-sm btn-outline-primary" href="/edit/{{ emp['id'] }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form method="post" action="/delete/{{ emp['id'] }}" class="d-inline" id="delForm{{ emp['id'] }}">
+                      <button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmDelete({{ emp['id'] }})"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                  </td>
+                </tr>
+              {% else %}
+                <tr><td colspan="8" class="text-center text-muted">No employees found.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="/static/script.js"></script>
+  </body>
+</html>
