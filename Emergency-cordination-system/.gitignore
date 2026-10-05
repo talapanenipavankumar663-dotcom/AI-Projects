@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Node & Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# React Native & Android build artifacts
+.metro-cache/
+android/app/build/
+android/build/
+android/app/.cxx/
+*.log
+*.png
+!MobileApp/screenshot.png
+
+# Environment & IDE
+.env
+.DS_Store
+.idea/
+.vscode/

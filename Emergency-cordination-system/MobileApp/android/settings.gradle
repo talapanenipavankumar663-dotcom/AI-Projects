@@ -1,0 +1,19 @@
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+
+// Replace long workspace root path with D:\App junction to fix Windows MAX_PATH (260 char limit) for C++ CMake/Ninja
+def autolinkJsonFile = file("build/generated/autolinking/autolinking.json")
+if (autolinkJsonFile.exists()) {
+    def jsonText = autolinkJsonFile.text
+    jsonText = jsonText.replaceAll('(?i)D:/Community-Emergency-Coordination-and-Citizen-Assistance-Network-with-Mobile-Application-Jun-2026/MobileApp', 'D:/App')
+    jsonText = jsonText.replaceAll('(?i)D:\\\\Community-Emergency-Coordination-and-Citizen-Assistance-Network-with-Mobile-Application-Jun-2026\\\\MobileApp', 'D:\\\\App')
+    autolinkJsonFile.text = jsonText
+}
+
+rootProject.name = 'MobileApp'
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
+
+
+
